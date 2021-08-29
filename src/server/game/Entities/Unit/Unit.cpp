@@ -467,9 +467,7 @@ void Unit::Update(uint32 p_time)
     i_motionMaster->Update(p_time);
 
     // Wait with the aura interrupts until we have updated our movement generators and position
-    if (GetTypeId() == TYPEID_PLAYER)
-        InterruptMovementBasedAuras();
-    else if (!movespline->Finalized())
+    if (!movespline->Finalized() || isMoving() || isTurning())
         InterruptMovementBasedAuras();
 
     // All position info based actions have been executed, reset info
